@@ -19,8 +19,19 @@ for sale in sales:
         if sale["region"] == key:
             sale["net_profit"] = sale["revenue"] - (sale["revenue"]*(value/100))
             sale["net_profit"] = round(sale["net_profit"],2)
-with open("cleaned_sales_updated.csv", "w", encoding="utf-8", newline="") as file:
-    columns = list(sales[0].keys())
-    writer = csv.DictWriter(file, fieldnames=columns)
-    writer.writeheader()
-    writer.writerows(sales)
+# with open("cleaned_sales_updated.csv", "w", encoding="utf-8", newline="") as file:
+#     columns = list(sales[0].keys())
+#     writer = csv.DictWriter(file, fieldnames=columns)
+#     writer.writeheader()
+#     writer.writerows(sales)
+
+sum_net_profit = {}
+for sale in sales:
+    if sale["product_category"] not in sum_net_profit:
+        sum_net_profit[sale["product_category"]] = 0
+for sale in sales:
+    value = sale["net_profit"]
+    sum_net_profit[sale["product_category"]] += value
+    sum_net_profit[sale["product_category"]] = round(sum_net_profit[sale["product_category"]],2)
+
+
