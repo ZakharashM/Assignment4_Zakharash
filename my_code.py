@@ -33,5 +33,12 @@ for sale in sales:
     value = sale["net_profit"]
     sum_net_profit[sale["product_category"]] += value
     sum_net_profit[sale["product_category"]] = round(sum_net_profit[sale["product_category"]],2)
+average_net_profit = 0
+sum_of_all_net_profits = 0
+for key,value in sum_net_profit.items():
+    sum_of_all_net_profits += value
+average_net_profit = sum_of_all_net_profits / len(sum_net_profit)
+average_net_profit = round(average_net_profit,2)
+sums_more_than_average = [key for key,value in sum_net_profit.items() if value > average_net_profit]
 
 
