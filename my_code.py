@@ -1,5 +1,8 @@
 import csv
 import json
+import pandas as pd
+import matplotlib.pyplot as plt
+
 with open("global_sales.csv", "r", encoding="utf-8") as file:
     sales = list(csv.DictReader(file))
 with open("regional_tariffs.json","r", encoding="utf-8") as file:
@@ -42,8 +45,11 @@ sums_more_than_average = [key for key,value in sum_net_profit.items() if value >
 top_categories = [(key, value) for key,value in sum_net_profit.items() if value > average_net_profit]
 top_categories.sort(key=lambda x: x[1], reverse=True)
 top_categories = dict(top_categories)
+print(top_categories)
 
-with open("top_categories.json", "w", encoding="utf-8") as file:
-    json.dump(top_categories, file, ensure_ascii=False, indent=4)
+# with open("top_categories.json", "w", encoding="utf-8") as file:
+#     json.dump(top_categories, file, ensure_ascii=False, indent=4)
 
+top_table = pd.DataFrame(top_categories.items(), columns=["Category", "Total net profit"])
+print(top_table)
 
