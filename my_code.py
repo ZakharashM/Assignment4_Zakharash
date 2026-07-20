@@ -14,5 +14,13 @@ for item in sales:
 for key,value in regional_tariffs.items():
     if regional_tariffs[key] == "N/A":
         regional_tariffs[key] = 0
-print(regional_tariffs)
-print(sales)
+for sale in sales:
+    for key,value in regional_tariffs.items():
+        if sale["region"] == key:
+            sale["net_profit"] = sale["revenue"] - (sale["revenue"]*(value/100))
+            sale["net_profit"] = round(sale["net_profit"],2)
+with open("cleaned_sales_updated.csv", "w", encoding="utf-8", newline="") as file:
+    columns = list(sales[0].keys())
+    writer = csv.DictWriter(file, fieldnames=columns)
+    writer.writeheader()
+    writer.writerows(sales)
