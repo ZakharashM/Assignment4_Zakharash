@@ -39,8 +39,11 @@ for key,value in sum_net_profit.items():
 average_net_profit = sum_of_all_net_profits / len(sum_net_profit)
 average_net_profit = round(average_net_profit,2)
 sums_more_than_average = [key for key,value in sum_net_profit.items() if value > average_net_profit]
-list_of_sums_more_than_average = [(key, value) for key,value in sum_net_profit.items() if value > average_net_profit]
-list_of_sums_more_than_average.sort(key=lambda x: x[1], reverse=True)
+top_categories = [(key, value) for key,value in sum_net_profit.items() if value > average_net_profit]
+top_categories.sort(key=lambda x: x[1], reverse=True)
+top_categories = dict(top_categories)
 
+with open("top_categories.json", "w", encoding="utf-8") as file:
+    json.dump(top_categories, file, ensure_ascii=False, indent=4)
 
 
