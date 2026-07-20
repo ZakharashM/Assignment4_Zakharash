@@ -22,11 +22,11 @@ for sale in sales:
         if sale["region"] == key:
             sale["net_profit"] = sale["revenue"] - (sale["revenue"]*(value/100))
             sale["net_profit"] = round(sale["net_profit"],2)
-# with open("cleaned_sales_updated.csv", "w", encoding="utf-8", newline="") as file:
-#     columns = list(sales[0].keys())
-#     writer = csv.DictWriter(file, fieldnames=columns)
-#     writer.writeheader()
-#     writer.writerows(sales)
+with open("cleaned_sales_updated.csv", "w", encoding="utf-8", newline="") as file:
+    columns = list(sales[0].keys())
+    writer = csv.DictWriter(file, fieldnames=columns)
+    writer.writeheader()
+    writer.writerows(sales)
 
 sum_net_profit = {}
 for sale in sales:
@@ -47,9 +47,14 @@ top_categories.sort(key=lambda x: x[1], reverse=True)
 top_categories = dict(top_categories)
 print(top_categories)
 
-# with open("top_categories.json", "w", encoding="utf-8") as file:
-#     json.dump(top_categories, file, ensure_ascii=False, indent=4)
+with open("top_categories.json", "w", encoding="utf-8") as file:
+   json.dump(top_categories, file, ensure_ascii=False, indent=4)
 
 top_table = pd.DataFrame(top_categories.items(), columns=["Category", "Total net profit"])
 print(top_table)
 
+plt.bar(top_categories.keys(), top_categories.values())
+plt.title("Top Categories")
+plt.xlabel("Category")
+plt.ylabel("Net Profit")
+plt.show()
